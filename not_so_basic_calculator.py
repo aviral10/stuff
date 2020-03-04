@@ -24,9 +24,6 @@ def solveExpression(arr):
                 # print(f'yes {ele} == exps:  {exps[holder]}  index of ele: {arr.index(ele)}')
                 found = True
                 opr = m
-                if arr[opr - 2] == '-':
-                    arr[opr - 1] = (-1) * float(arr[opr - 1])
-                    arr[opr - 2] = '+'
                 if holder == 0:
                     a = div(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz divided {arr[opr - 1]} with {int(arr[opr + 1])}')
@@ -36,9 +33,9 @@ def solveExpression(arr):
                 elif holder == 2:
                     a = addition(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz we added {arr[opr - 1]} with {int(arr[opr + 1])}')
-                elif holder == 3:
+                '''elif holder == 3:
                     a = diff(float(arr[opr-1]), float(arr[opr+1]))
-                    # print(f'we got: {a}, coz we subtracted {arr[opr - 1]} with {int(arr[opr + 1])}')
+                    # print(f'we got: {a}, coz we subtracted {arr[opr - 1]} with {int(arr[opr + 1])}')'''
                 arr.pop(opr-1)
                 arr.pop(opr)
                 arr[opr-1] = a
@@ -50,18 +47,43 @@ def solveExpression(arr):
     return arr[0]
 
 print('''Enter the expression in the following format:
-9 + ( ( 88 / 20 ) * 5 ) - 2 + 997
-1: Put spaces after every element.(Not to be confused with numbers greater than 10. 999 is an individual element.)
-2: Avoid using negative numbers as an element, put them as an expressiosn: 0 - 12 if you wish to put -12.''')
+9+((88/20)*5)-2+997''')
 input_string = input("Enter the expression: \n")
+numbers = [str(x) for x in range(10)]
+expression = []
+i = 0
+while i < len(input_string):
+    word = ""
+    if input_string[i] == '-':
+        expression.append('+')
+        word += '-'
+        c=i
+        while input_string[c] not in numbers:
+            c+=1
+        i = c
+    if input_string[i] in numbers:
+        number_counter = i
+        while number_counter < len(input_string) and input_string[number_counter] in numbers:
+            word += str(input_string[number_counter])
+            number_counter += 1
+        expression.append(word)
+        i = number_counter - 1
+    else:
+        if input_string[i] != ' ':
+            expression.append(input_string[i])
+    i += 1
+k,t = 0,len(expression)
+while k < t:
+    if expression[k] == '+' and expression[k-1] == '(':
+        expression.pop(k)
+        t -= 1
+    k += 1
+print(expression)
 
 
-expression = [x for x in input_string.split()]
 
-
-if expression[0] != '(':
-    expression.insert(0, '(')
-    expression.append(')')
+expression.insert(0, '(')
+expression.append(')')
 print(expression)
 while len(expression) != 1:
     note_index_open = 0
