@@ -24,6 +24,9 @@ def solveExpression(arr):
                 # print(f'yes {ele} == exps:  {exps[holder]}  index of ele: {arr.index(ele)}')
                 found = True
                 opr = m
+                if arr[opr - 2] == '-':
+                    arr[opr - 1] = (-1) * float(arr[opr - 1])
+                    arr[opr - 2] = '+'
                 if holder == 0:
                     a = div(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz divided {arr[opr - 1]} with {int(arr[opr + 1])}')
@@ -31,21 +34,9 @@ def solveExpression(arr):
                     a = mul(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz we multiplied {arr[opr-1]} with {int(arr[opr+1])}')
                 elif holder == 2:
-                    try:
-                        if arr[opr - 2] == '-':
-                            arr[opr - 1] = (-1)*float(arr[opr-1])
-                            arr[opr - 2] = '+'
-                    except:
-                        pass
                     a = addition(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz we added {arr[opr - 1]} with {int(arr[opr + 1])}')
                 elif holder == 3:
-                    try:
-                        if arr[opr - 2] == '-':
-                            arr[opr - 1] = (-1)*float(arr[opr-1])
-                            arr[opr - 2] = '+'
-                    except:
-                        pass
                     a = diff(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz we subtracted {arr[opr - 1]} with {int(arr[opr + 1])}')
                 arr.pop(opr-1)
@@ -58,6 +49,10 @@ def solveExpression(arr):
             holder += 1
     return arr[0]
 
+print('''Enter the expression in the following format:
+9 + ( ( 88 / 20 ) * 5 ) - 2 + 997
+1: Put spaces after every element.(Not to be confused with numbers greater than 10. 999 is an individual element.)
+2: Avoid using negative numbers as an element, put them as an expressiosn: 0 - 12 if you wish to put -12.''')
 input_string = input("Enter the expression: \n")
 
 
