@@ -14,7 +14,7 @@ def div(a,b):
 
 
 def solveExpression(arr):
-    exps = ['/', '*', '+', '-']
+    exps = ['/', '*', '+']
     holder = 0
     a = 'xxx'
     while len(arr) != 1:
@@ -33,9 +33,6 @@ def solveExpression(arr):
                 elif holder == 2:
                     a = addition(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz we added {arr[opr - 1]} with {int(arr[opr + 1])}')
-                '''elif holder == 3:
-                    a = diff(float(arr[opr-1]), float(arr[opr+1]))
-                    # print(f'we got: {a}, coz we subtracted {arr[opr - 1]} with {int(arr[opr + 1])}')'''
                 arr.pop(opr-1)
                 arr.pop(opr)
                 arr[opr-1] = a
