@@ -25,16 +25,28 @@ def solveExpression(arr):
                 found = True
                 opr = m
                 if holder == 0:
-                    a = div(int(arr[opr-1]), int(arr[opr+1]))
+                    a = div(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz divided {arr[opr - 1]} with {int(arr[opr + 1])}')
                 elif holder == 1:
-                    a = mul(int(arr[opr-1]), int(arr[opr+1]))
+                    a = mul(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz we multiplied {arr[opr-1]} with {int(arr[opr+1])}')
                 elif holder == 2:
-                    a = addition(int(arr[opr-1]), float(arr[opr+1]))
+                    try:
+                        if arr[opr - 2] == '-':
+                            arr[opr - 1] = (-1)*float(arr[opr-1])
+                            arr[opr - 2] = '+'
+                    except:
+                        pass
+                    a = addition(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz we added {arr[opr - 1]} with {int(arr[opr + 1])}')
                 elif holder == 3:
-                    a = diff(int(arr[opr-1]), float(arr[opr+1]))
+                    try:
+                        if arr[opr - 2] == '-':
+                            arr[opr - 1] = (-1)*float(arr[opr-1])
+                            arr[opr - 2] = '+'
+                    except:
+                        pass
+                    a = diff(float(arr[opr-1]), float(arr[opr+1]))
                     # print(f'we got: {a}, coz we subtracted {arr[opr - 1]} with {int(arr[opr + 1])}')
                 arr.pop(opr-1)
                 arr.pop(opr)
@@ -46,11 +58,6 @@ def solveExpression(arr):
             holder += 1
     return arr[0]
 
-'''arr = [1,'*',2,'+',3, '/',5]
-print(arr)
-solveExpression(arr)
-print(arr)
-'''
 input_string = input("Enter the expression: \n")
 
 
