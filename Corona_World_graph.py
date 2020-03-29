@@ -1,6 +1,6 @@
-"""Doesn't work anymore"""
-
-
+"""
+As of 29/03/2020, It works Fine..
+"""
 import requests
 from bs4 import BeautifulSoup
 import numpy as np
@@ -31,12 +31,12 @@ soup = BeautifulSoup(response, 'html.parser')
 stats = []
 all_rows = soup.find_all('tr')
 
-for row in all_rows:
+for row in all_rows[:-1]:
     stat = extract_contents(row.find_all('td'))
-    if len(stat) == 10:
+    if len(stat) >= 10:
         stats.append(stat)
     #print(stat)
-stats.remove(stats[-1])
+
 countries = [row[0] for row in stats]
 active_cases = [row[6] for row in stats]
 active_cases = [int(s.replace(',', '')) for s in active_cases]
@@ -49,9 +49,9 @@ for i in range(len(deaths)):
     else:
         deaths[i] = int(deaths[i].replace(',', ''))
 
-'''
+
 for i in range(len(countries)):
-    print(countries[i], ": ", active_cases[i])'''
+    print(countries[i], ": ", active_cases[i])
 
 countries = countries[:20]
 active_cases = active_cases[:20]
@@ -80,19 +80,18 @@ plt.bar(y_pos, performance, align='center', alpha=0.5)
 plt.xticks(y_pos, objects, rotation=90)
 plt.ylabel('Active Cases')
 plt.title('Active Corona Cases')
-
 for i, v in enumerate(active_cases):
     plt.text(i, v+3, str(v), color='Black',fontsize=8, ha='center', rotation=0)
-
 f2 = plt.figure(2)
 performance = deaths
 plt.bar(y_pos, performance, align='center', alpha=0.5)
 plt.xticks(y_pos, objects, rotation=90)
 plt.ylabel('Deaths')
 plt.title('Deaths')
-
 for i, v in enumerate(deaths):
     plt.text(i, v+3, str(v), color='Black',fontsize=8, ha='center', rotation=0)
-
 '''
 plt.show()
+
+
+
