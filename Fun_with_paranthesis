@@ -6,7 +6,7 @@ def solve(s):
         pos = int(s[i-1]) - int(s[i])
         if s[i] == "0":
             final_string += "0"
-            start = len(s)
+            start = len(final_string)
             continue
         if pos > 0:
             start += pos + 1
