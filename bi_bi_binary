@@ -43,7 +43,7 @@ def find_equi(num):
         else:
             arr.append((conv//4)*4)
             arr.append(conv % 4)
-        print(f"Coversion of {ele}: {arr}")
+        print(f"Conversion of {ele}: {arr}")
         final += find(arr)
     return final
 
