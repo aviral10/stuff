@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-int maximum(vector<int> &p)
+int maximum(vector<int> &p) //Maximum in the array
 {
     int max = p[0];
     for(int i=1;i<p.size();i++)
@@ -12,7 +12,7 @@ int maximum(vector<int> &p)
     return max;
 }
 
-void simult_sort(vector<int> &a, vector<int> &b)
+void simult_sort(vector<int> &a, vector<int> &b) //Sorting array b according to array a(Descending)
 {
     int i,j,key,temp;
     for(i=0;i<a.size();i++)
@@ -37,13 +37,13 @@ int main()
     vector<int> profits = {35,30,25,20,15,12,5};
     vector<int> deadlines = {3,4,4,2,3,1,2};
     
-    simult_sort(profits, deadlines);
+    simult_sort(profits, deadlines);    //So array starts with max profit
 
     int i, max = maximum(deadlines);
     
-    vector<int> slots;
-        slots.assign(max, 0);
-    vector<bool> fill;
+    vector<int> slots;                  //result array to store indices of jobs
+        slots.assign(max, 0);       
+    vector<bool> fill;                  //all slots available 
         fill.assign(max,false);
     
     int c = 0;
@@ -51,14 +51,14 @@ int main()
     {
         for(int j=deadlines[i];j>=1;j--)
         {
-            if(fill[j-1] == false)
+            if(fill[j-1] == false)      //Checking if that slot is available
             {
                 slots[j-1] = i;
-                fill[j-1] = true;
+                fill[j-1] = true;       //making that slot unavailable
                 c++;
-                break;
+                break;                  
             }
-            if(c==max)
+            if(c==max)                  //Checking if all slots are filled up
                 break;
         }
         if(c==max)
@@ -69,7 +69,7 @@ int main()
     for(i=0;i<c;i++)
     {
         cout << "J" <<slots[i]+1 << " with profit of $"<<profits[slots[i]] <<'\n';
-        pro += profits[slots[i]];
+        pro += profits[slots[i]];       //Adding profit
     }
     cout<<"Final profit: " <<pro <<'\n';
     return 0;
