@@ -12,16 +12,40 @@ int maximum(vector<int> &p)
     return max;
 }
 
+void simult_sort(vector<int> &a, vector<int> &b)
+{
+    int i,j,key,temp;
+    for(i=0;i<a.size();i++)
+    {
+        key = i;
+        for(j=i+1;j<a.size();j++)
+        {
+            if(a[j] > a[key])
+                key = j;
+        }
+        temp = a[i];
+        a[i] = a[key];
+        a[key] = temp;
+        temp = b[i];
+        b[i] = b[key];
+        b[key] = temp;
+    }
+
+}
 int main()
 {
     vector<int> profits = {35,30,25,20,15,12,5};
     vector<int> deadlines = {3,4,4,2,3,1,2};
-    int i;
-    int max = maximum(deadlines);
+    
+    simult_sort(profits, deadlines);
+
+    int i, max = maximum(deadlines);
+    
     vector<int> slots;
-    slots.assign(max, 0);
+        slots.assign(max, 0);
     vector<bool> fill;
-    fill.assign(max,false);
+        fill.assign(max,false);
+    
     int c = 0;
     for(i=0;i<profits.size();i++)
     {
